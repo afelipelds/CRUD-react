@@ -28,34 +28,56 @@ const CrudAPI = ({apiUrl}) => {
   }, [apiUrl]);
 
   const createDataRegister = (newRegister) => {
-    const additionalOptions = {
+    newRegister.id = Date.now();
+    let additionalOptions = {
       body: newRegister,
       headers: {"content-type":"application/json"},
     }
 
-    newRegister.id = Date.now();
     helpHttp.post(apiUrl, additionalOptions)
       .then( res => {
-        console.log('response',res);
-
         if (!res.err) setDataBase([ ...dataBase, res])
         else setError(res);
       })
+  };
 
-    setDataBase([...dataBase, newRegister]);
-  };
   const updateDataRegister = (data) => {
-    const newData = dataBase.map((el) => (el.id === data.id ? data : el));
-    setDataBase(newData);
+    let endpoint = `${apiUrl}/${data.id}`;
+    let additionalOptions = {
+      body: data,
+      headers: {"content-type":"application/json"},
+    }
+    helpHttp.put(endpoint, additionalOptions)
+      .then( res => {
+        if (!res.err) {
+          const newData = dataBase.map((el) => (el.id === data.id ? data : el));
+          setDataBase(newData);
+        }
+        else setError(res);
+      })
   };
+
   const deleteDataRegister = (id) => {
     const isDelete = window.confirm(
       `Are you sure you want to delete this register ${id}?`
     );
+    
     if (isDelete) {
-      let newData = dataBase.filter((el) => el.id !== id);
-      setDataBase(newData);
+      let endpoint = `${apiUrl}/${id}`;
+      let additionalOptions = {
+        headers: {"content-type":"application/json"},
+      }
+      
+      helpHttp.del(endpoint, additionalOptions)
+        .then( res => {
+          if (!res.err) {
+            let newData = dataBase.filter((el) => el.id !== id);
+            setDataBase(newData);
+          }
+          else setError(res);
+        })
     }
+    else return;
   };
 
   return (
