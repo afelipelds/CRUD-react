@@ -10,7 +10,6 @@ const CrudTable = ({ data, setDataToEdit, deleteDataRegister }) => {
           <tr>
             <th>Name</th>
             <th>Constellation</th>
-            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>

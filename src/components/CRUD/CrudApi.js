@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { helpHTTP } from "../helpers/helpHttp";
-import CrudForm from "./CrudForm";
-import CrudTable from "./CrudTable";
-import Loader from "./Loader";
-import Message from "./Message";
+import { helpHTTP } from "../../helpers/helpHttp";
+import CrudForm from "../Form/CrudForm";
+import CrudTable from "../Table/CrudTable";
+import Loader from "../Loader/Loader";
+import Message from "../Message/Message";
 
 const CrudAPI = ({apiUrl}) => {
-  const [dataBase, setDataBase] = useState(null);
+  const [dataBase, setDataBase] = useState(null);  // If the api server is offline, 'null' value will cause an error becuase is not iterable
   const [dataToEdit, setDataToEdit] = useState(null);
   const [error, setError] = useState(null);
   const [loader, setLoader] = useState(false);
@@ -19,7 +19,7 @@ const CrudAPI = ({apiUrl}) => {
         setDataBase(res);
         setError(null);
       } else {
-        setDataBase(null);
+        setDataBase([]);
         setError(res);
       }
     });

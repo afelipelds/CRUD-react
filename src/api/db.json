@@ -51,14 +51,14 @@
       "id": 1629743795769
     },
     {
-      "name": "Andres",
-      "constellation": "Aries",
-      "id": 1629751325138
-    },
-    {
       "name": "Aioria",
       "constellation": "Leo",
       "id": 1629752252096
+    },
+    {
+      "name": "Aioros",
+      "constellation": "Sagitario",
+      "id": 1630433525161
     }
   ]
 }

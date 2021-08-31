@@ -7,19 +7,15 @@ const initialForm = {
 };
 
 const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
-  const [formData, setForm] = useState(initialForm);
-
-  useEffect(() => {
-    if(dataToEdit) setForm(dataToEdit)
-    else setForm(initialForm);
-  }, [dataToEdit])
+  const [formData, setFormData] = useState(initialForm);
 
   const handleChange = (event) => {
-    setForm({
+    setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -33,10 +29,16 @@ const CrudForm = ({ createData, updateData, dataToEdit, setDataToEdit }) => {
 
     handleReset();
   };
+
   const handleReset = () => {
-    setForm(initialForm);
+    setFormData(initialForm);
     setDataToEdit(null);
   };
+
+  useEffect(() => {
+    if(dataToEdit) setFormData(dataToEdit)
+    else setFormData(initialForm);
+  }, [dataToEdit])
 
   return (
     <div>
